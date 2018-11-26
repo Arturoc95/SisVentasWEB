@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SisVentasModelPrincipal" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Articulo">
+    <Key>
+      <PropertyRef Name="IdArticulo" />
+    </Key>
+    <Property Name="IdArticulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+    <Property Name="IdPresentacion" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Categoria" Relationship="Self.FK_Articulo_Categoria" FromRole="Articulo" ToRole="Categoria" />
+    <NavigationProperty Name="Presentacion" Relationship="Self.FK_Articulo_Presentacion" FromRole="Articulo" ToRole="Presentacion" />
+    <NavigationProperty Name="DetalleIngresoes" Relationship="Self.FK_DetalleIngreso_Articulo" FromRole="Articulo" ToRole="DetalleIngreso" />
+  </EntityType>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Articuloes" Relationship="Self.FK_Articulo_Categoria" FromRole="Categoria" ToRole="Articulo" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TipoDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NumDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ventas" Relationship="Self.FK_Venta_Cliente" FromRole="Cliente" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="DetalleIngreso">
+    <Key>
+      <PropertyRef Name="IdDetalleIngreso" />
+    </Key>
+    <Property Name="IdDetalleIngreso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdIngreso" Type="Int32" Nullable="false" />
+    <Property Name="IdArticulo" Type="Int32" Nullable="false" />
+    <Property Name="PrecioCompra" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="PrecioVenta" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="StockInicial" Type="Int32" Nullable="false" />
+    <Property Name="StockActual" Type="Int32" Nullable="false" />
+    <Property Name="FechaProduccion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Articulo" Relationship="Self.FK_DetalleIngreso_Articulo" FromRole="DetalleIngreso" ToRole="Articulo" />
+    <NavigationProperty Name="Ingreso" Relationship="Self.FK_DetalleIngreso_Ingreso" FromRole="DetalleIngreso" ToRole="Ingreso" />
+    <NavigationProperty Name="DetalleVentas" Relationship="Self.FK_DetalleVenta_DetalleIngreso" FromRole="DetalleIngreso" ToRole="DetalleVenta" />
+  </EntityType>
+  <EntityType Name="DetalleVenta">
+    <Key>
+      <PropertyRef Name="IdDetalleVenta" />
+    </Key>
+    <Property Name="IdDetalleVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdVenta" Type="Int32" Nullable="false" />
+    <Property Name="IdDetalleIngreso" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="PrecioVenta" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Descuento" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="DetalleIngreso" Relationship="Self.FK_DetalleVenta_DetalleIngreso" FromRole="DetalleVenta" ToRole="DetalleIngreso" />
+    <NavigationProperty Name="Venta" Relationship="Self.FK_DetalleVenta_Venta" FromRole="DetalleVenta" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Ingreso">
+    <Key>
+      <PropertyRef Name="IdIngreso" />
+    </Key>
+    <Property Name="IdIngreso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTrabajador" Type="Int32" Nullable="false" />
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TipoComprobante" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Serie" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Correlativo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IVA" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DetalleIngresoes" Relationship="Self.FK_DetalleIngreso_Ingreso" FromRole="Ingreso" ToRole="DetalleIngreso" />
+    <NavigationProperty Name="Proveedor" Relationship="Self.FK_Ingreso_Proveedor" FromRole="Ingreso" ToRole="Proveedor" />
+    <NavigationProperty Name="Trabajador" Relationship="Self.FK_Ingreso_Trabajador" FromRole="Ingreso" ToRole="Trabajador" />
+  </EntityType>
+  <EntityType Name="Presentacion">
+    <Key>
+      <PropertyRef Name="IdPresentacion" />
+    </Key>
+    <Property Name="IdPresentacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Articuloes" Relationship="Self.FK_Articulo_Presentacion" FromRole="Presentacion" ToRole="Articulo" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RazonSocial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SectorComercial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NumDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ingresoes" Relationship="Self.FK_Ingreso_Proveedor" FromRole="Proveedor" ToRole="Ingreso" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trabajador">
+    <Key>
+      <PropertyRef Name="IdTrabajador" />
+    </Key>
+    <Property Name="IdTrabajador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NumDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Acceso" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Ingresoes" Relationship="Self.FK_Ingreso_Trabajador" FromRole="Trabajador" ToRole="Ingreso" />
+    <NavigationProperty Name="Ventas" Relationship="Self.FK_Venta_Trabajador" FromRole="Trabajador" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="IdVenta" />
+    </Key>
+    <Property Name="IdVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="IdTrabajador" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TipoComprobante" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Serie" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Correlativo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IVA" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Venta_Cliente" FromRole="Venta" ToRole="Cliente" />
+    <NavigationProperty Name="DetalleVentas" Relationship="Self.FK_DetalleVenta_Venta" FromRole="Venta" ToRole="DetalleVenta" />
+    <NavigationProperty Name="Trabajador" Relationship="Self.FK_Venta_Trabajador" FromRole="Venta" ToRole="Trabajador" />
+  </EntityType>
+  <Association Name="FK_Articulo_Categoria">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Articulo">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Articulo_Presentacion">
+    <End Role="Presentacion" Type="Self.Presentacion" Multiplicity="1" />
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Presentacion">
+        <PropertyRef Name="IdPresentacion" />
+      </Principal>
+      <Dependent Role="Articulo">
+        <PropertyRef Name="IdPresentacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleIngreso_Articulo">
+    <End Role="Articulo" Type="Self.Articulo" Multiplicity="1" />
+    <End Role="DetalleIngreso" Type="Self.DetalleIngreso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="IdArticulo" />
+      </Principal>
+      <Dependent Role="DetalleIngreso">
+        <PropertyRef Name="IdArticulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleIngreso_Ingreso">
+    <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DetalleIngreso" Type="Self.DetalleIngreso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ingreso">
+        <PropertyRef Name="IdIngreso" />
+      </Principal>
+      <Dependent Role="DetalleIngreso">
+        <PropertyRef Name="IdIngreso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleVenta_DetalleIngreso">
+    <End Role="DetalleIngreso" Type="Self.DetalleIngreso" Multiplicity="1" />
+    <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DetalleIngreso">
+        <PropertyRef Name="IdDetalleIngreso" />
+      </Principal>
+      <Dependent Role="DetalleVenta">
+        <PropertyRef Name="IdDetalleIngreso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleVenta_Venta">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="DetalleVenta">
+        <PropertyRef Name="IdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingreso_Proveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Ingreso">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingreso_Trabajador">
+    <End Role="Trabajador" Type="Self.Trabajador" Multiplicity="1" />
+    <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trabajador">
+        <PropertyRef Name="IdTrabajador" />
+      </Principal>
+      <Dependent Role="Ingreso">
+        <PropertyRef Name="IdTrabajador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_Trabajador">
+    <End Role="Trabajador" Type="Self.Trabajador" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trabajador">
+        <PropertyRef Name="IdTrabajador" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdTrabajador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SisVentasEntitiesPrincipal" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articuloes" EntityType="Self.Articulo" />
+    <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="DetalleIngresoes" EntityType="Self.DetalleIngreso" />
+    <EntitySet Name="DetalleVentas" EntityType="Self.DetalleVenta" />
+    <EntitySet Name="Ingresoes" EntityType="Self.Ingreso" />
+    <EntitySet Name="Presentacions" EntityType="Self.Presentacion" />
+    <EntitySet Name="Proveedors" EntityType="Self.Proveedor" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Trabajadors" EntityType="Self.Trabajador" />
+    <EntitySet Name="Ventas" EntityType="Self.Venta" />
+    <AssociationSet Name="FK_Articulo_Categoria" Association="Self.FK_Articulo_Categoria">
+      <End Role="Categoria" EntitySet="Categorias" />
+      <End Role="Articulo" EntitySet="Articuloes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Articulo_Presentacion" Association="Self.FK_Articulo_Presentacion">
+      <End Role="Presentacion" EntitySet="Presentacions" />
+      <End Role="Articulo" EntitySet="Articuloes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleIngreso_Articulo" Association="Self.FK_DetalleIngreso_Articulo">
+      <End Role="Articulo" EntitySet="Articuloes" />
+      <End Role="DetalleIngreso" EntitySet="DetalleIngresoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_Cliente" Association="Self.FK_Venta_Cliente">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleIngreso_Ingreso" Association="Self.FK_DetalleIngreso_Ingreso">
+      <End Role="Ingreso" EntitySet="Ingresoes" />
+      <End Role="DetalleIngreso" EntitySet="DetalleIngresoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleVenta_DetalleIngreso" Association="Self.FK_DetalleVenta_DetalleIngreso">
+      <End Role="DetalleIngreso" EntitySet="DetalleIngresoes" />
+      <End Role="DetalleVenta" EntitySet="DetalleVentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleVenta_Venta" Association="Self.FK_DetalleVenta_Venta">
+      <End Role="Venta" EntitySet="Ventas" />
+      <End Role="DetalleVenta" EntitySet="DetalleVentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingreso_Proveedor" Association="Self.FK_Ingreso_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedors" />
+      <End Role="Ingreso" EntitySet="Ingresoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingreso_Trabajador" Association="Self.FK_Ingreso_Trabajador">
+      <End Role="Trabajador" EntitySet="Trabajadors" />
+      <End Role="Ingreso" EntitySet="Ingresoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_Trabajador" Association="Self.FK_Venta_Trabajador">
+      <End Role="Trabajador" EntitySet="Trabajadors" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

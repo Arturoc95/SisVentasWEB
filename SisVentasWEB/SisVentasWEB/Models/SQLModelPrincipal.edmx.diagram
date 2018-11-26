@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="df2b1f9a5d0d4b07aa24a42c986f7f9d" Name="Diagram1">
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Articulo" Width="1.5" PointX="6" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Categoria" Width="1.5" PointX="4.125" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Cliente" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.DetalleIngreso" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.DetalleVenta" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Ingreso" Width="1.5" PointX="3.375" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Presentacion" Width="1.5" PointX="3.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Proveedor" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.sysdiagram" Width="1.5" PointX="8.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Trabajador" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModelPrincipal.Venta" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_Articulo_Categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_Articulo_Presentacion" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_DetalleIngreso_Articulo" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_Venta_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_DetalleIngreso_Ingreso" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_DetalleVenta_DetalleIngreso" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_DetalleVenta_Venta" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_Ingreso_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_Ingreso_Trabajador" ManuallyRouted="false" />
+        <AssociationConnector Association="SisVentasModelPrincipal.FK_Venta_Trabajador" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SisVentasWEB.Models.Articulo>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Articulo</title>
+</head>
+<body>
+    <center>
+        <h1>SisVentas WEB</h1>
+        <h2> - Articulos -</h2>
+        <hr />
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+                <th>IdCategoria</th>
+                <th>IdPresentación</th>
+            </tr>
+            @foreach (SisVentasWEB.Models.Articulo ass in Model)
+            {
+            <tr>
+                <td>@ass.IdArticulo</td>
+                <td>@ass.Codigo</td>
+                <td>@ass.Nombre</td>
+                <td>@ass.Descripcion</td>
+                <td>@ass.Imagen</td>
+                <td>@ass.IdCategoria</td>
+                <td>@ass.IdPresentacion</td>
+            </tr>
+            }
+
+        </table>
+        <hr />
+        <a href="~/Home"><input type="button" value="Ir a Categorias"</a>
+
+    </center>
+</body>
+</html>
